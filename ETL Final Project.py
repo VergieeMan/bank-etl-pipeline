@@ -8,23 +8,26 @@ Created on Thu Dec  4 10:58:14 2025
 import pandas as pd 
 from bs4 import BeautifulSoup
 import requests
-from datetime import datetime 
 import sqlite3
 import os
+import logging
 
 #initiate
 target_file = "Largest_banks_data.csv"
 log_file = "code_log.txt"
 folder = "C:/Users/Vergi/.spyder-py3/ETL - Final/"
 
+#Setup logging
+logging.basicConfig(
+    filename=log_file,
+    level = logging.INFO,
+    format= '%(asctime)s | %(message)s',
+    datefmt = '%Y-%h-%d %H:%M:%S'
+    )
 
 #log_progress
 def log_progress(message):
-    timestamp_format = "%Y-%h-%d %H:%M:%S"
-    now = datetime.now()
-    timestamp = now.strftime(timestamp_format)
-    with open(log_file, 'a') as f:
-        f.write(timestamp + "," + message + '\n')
+    logging.info(message)
 
 #Extract
 url = "https://web.archive.org/web/20230908091635%20/https://en.wikipedia.org/wiki/List_of_largest_banks"
